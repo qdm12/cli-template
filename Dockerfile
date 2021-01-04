@@ -16,7 +16,7 @@ RUN go build -trimpath -ldflags="-s -w \
   -X 'main.version=$VERSION' \
   -X 'main.buildDate=$BUILD_DATE' \
   -X 'main.commit=$COMMIT' \
-  " -o entrypoint cmd/REPONAME/main.go
+  " -o entrypoint cmd/app/main.go
 
 FROM alpine:${ALPINE_VERSION} AS alpine
 RUN apk add ca-certificates
