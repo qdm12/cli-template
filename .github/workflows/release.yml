@@ -7,6 +7,7 @@ on:
       - .github/workflows/release.yml
       - cmd/**
       - internal/**
+      - pkg/**
       - .dockerignore
       - .golangci.yml
       - .gorelease.yml
