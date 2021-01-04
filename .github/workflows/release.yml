@@ -7,8 +7,10 @@ on:
       - .github/workflows/release.yml
       - cmd/**
       - internal/**
+      - .dockerignore
       - .golangci.yml
       - .gorelease.yml
+      - Dockerfile
       - go.mod
       - go.sum
 
