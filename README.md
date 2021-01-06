@@ -30,6 +30,7 @@ docker run -it --rm -v "/yourrepopath:/repository" qmcgaw/REPONAME:v0.1.0 -help
 - `linux/arm/v6`
 - `linux/arm/v7`
 - `linux/s390x`
+- `linux/ppc64le`
 - If you need one more, please [create an issue](https://github.com/qdm12/REPONAME/issues/new)
 
 ## Build it yourself
