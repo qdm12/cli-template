@@ -44,29 +44,32 @@ func main() {
 		os.Interrupt,
 	)
 
-	exitCode := 0
 	select {
+	case err := <-errorCh:
+		close(errorCh)
+		if err == nil { // expected exit such as healthcheck
+			os.Exit(0)
+		}
+		fmt.Println("Fatal error:", err)
+		os.Exit(1)
 	case signal := <-signalsCh:
 		fmt.Println("\nShutting down: signal", signal)
-		exitCode = 1
-		cancel()
-		timer := time.NewTimer(time.Second)
-		select {
-		case <-errorCh:
-			if !timer.Stop() {
-				<-timer.C
-			}
-		case <-timer.C:
-			fmt.Println("Shutdown timed out")
-		}
-	case err := <-errorCh:
-		if err != nil {
-			fmt.Println("Fatal error:", err)
-			exitCode = 1
-		}
-		cancel()
 	}
-	os.Exit(exitCode)
+
+	cancel()
+
+	const shutdownGracePeriod = time.Second
+	timer := time.NewTimer(shutdownGracePeriod)
+	select {
+	case <-errorCh:
+		if !timer.Stop() {
+			<-timer.C
+		}
+	case <-timer.C:
+		fmt.Println("Shutdown timed out")
+	}
+
+	os.Exit(1)
 }
 
 func _main(ctx context.Context, args []string, buildInfo models.BuildInfo) error {
