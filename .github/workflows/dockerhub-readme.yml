@@ -1,7 +1,7 @@
 name: Docker Hub readme
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - README.md
       - .github/workflows/dockerhub-readme.yml
