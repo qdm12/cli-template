@@ -17,5 +17,5 @@ jobs:
           username: qmcgaw
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           repository: qmcgaw/REPONAME
-          short-description: Setup your VSCode development container configuration files with style 🦗
+          short-description: SHORT_DESCRIPTION
           readme-filepath: README.md

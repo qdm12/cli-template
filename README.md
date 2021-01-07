@@ -1,8 +1,39 @@
 # REPONAME
 
+*SHORT_DESCRIPTION*
+
+[![Size](https://img.shields.io/docker/image-size/qmcgaw/REPONAME?sort=semver&label=Last%20released%20image)](https://hub.docker.com/r/qmcgaw/REPONAME/tags?page=1&ordering=last_updated)
+[![Size](https://img.shields.io/docker/image-size/qmcgaw/REPONAME/latest?label=Latest%20image)](https://hub.docker.com/r/qmcgaw/REPONAME/tags)
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/qmcgaw/REPONAME.svg)](https://hub.docker.com/r/qmcgaw/REPONAME)
+
+![Last release](https://img.shields.io/github/release/qdm12/REPONAME?label=Last%20release)
+![Last Docker tag](https://img.shields.io/docker/v/qmcgaw/REPONAME?sort=semver&label=Last%20Docker%20tag)
+![GitHub Release Date](https://img.shields.io/github/release-date/qdm12/REPONAME?label=Last%20release%20date)
+
+![Commits since release](https://img.shields.io/github/commits-since/qdm12/REPONAME/latest?sort=semver)
+[![GitHub last commit](https://img.shields.io/github/last-commit/qdm12/REPONAME.svg)](https://github.com/qdm12/REPONAME/commits)
+
+[![Lines of code](https://img.shields.io/tokei/lines/github/qdm12/REPONAME)](https://github.com/qdm12/REPONAME)
+
+## Quick links
+
+- Problem or suggestion?
+  - [Start a discussion](https://github.com/qdm12/REPONAME/discussions)
+  - [Create an issue](https://github.com/qdm12/REPONAME/issues)
+  - [Check the Wiki](https://github.com/qdm12/REPONAME/wiki)
+- Happy?
+  - Sponsor me on [github.com/sponsors/qdm12](https://github.com/sponsors/qdm12)
+  - Donate to [paypal.me/qmcgaw](https://www.paypal.me/qmcgaw)
+  - Drop me [an email](mailto:quentin.mcgaw@gmail.com)
+
 ## Features
 
 ## Usage
+
+```sh
+
+```
 
 ### Binary
 
@@ -48,3 +79,29 @@ Install Go, then either
   ```sh
   GOARCH=amd64 go build cmd/REPONAME/main.go
   ```
+
+## License
+
+[![MIT](https://img.shields.io/github/license/qdm12/REPONAME)](https://github.com/qdm12/REPONAME/master/LICENSE)
+
+## Metadata
+
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/qdm12/REPONAME.svg)](https://github.com/qdm12/REPONAME/commits)
+[![GitHub closed PRs](https://img.shields.io/github/issues-pr-closed/qdm12/REPONAME.svg)](https://github.com/qdm12/REPONAME/pulls?q=is%3Apr+is%3Aclosed)
+
+[![GitHub issues](https://img.shields.io/github/issues/qdm12/REPONAME.svg)](https://github.com/qdm12/REPONAME/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/qdm12/REPONAME.svg)](https://github.com/qdm12/REPONAME/issues?q=is%3Aissue+is%3Aclosed)
+
+![Visitors count](https://visitor-badge.laobi.icu/badge?page_id=REPONAME.readme)
+![GitHub stars](https://img.shields.io/github/stars/qdm12/REPONAME?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/qdm12/REPONAME?style=social)
+![Contributors](https://img.shields.io/github/contributors/qdm12/REPONAME?style=social)
+![GitHub forks](https://img.shields.io/github/forks/qdm12/REPONAME?style=social)
+
+![Code size](https://img.shields.io/github/languages/code-size/qdm12/REPONAME)
+![GitHub repo size](https://img.shields.io/github/repo-size/qdm12/REPONAME)
+
+[![dockeri.co](https://dockeri.co/image/qmcgaw/REPONAME)](https://hub.docker.com/r/qmcgaw/REPONAME)
+
+![Docker Layers for latest](https://img.shields.io/microbadger/layers/qmcgaw/REPONAME/latest?label=Docker%20image%20layers)
+![Go version](https://img.shields.io/github/go-mod/go-version/qdm12/REPONAME)
