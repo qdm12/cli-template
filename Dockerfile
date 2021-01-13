@@ -55,4 +55,5 @@ LABEL \
   org.opencontainers.image.description=""
 COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 ENTRYPOINT ["/REPONAME"]
-COPY --from=build /tmp/gobuild/entrypoint /REPONAME
+USER 1000
+COPY --from=build --chown=1000 /tmp/gobuild/entrypoint /REPONAME
