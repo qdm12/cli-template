@@ -1,10 +1,10 @@
-ARG ALPINE_VERSION=3.12
-ARG GO_VERSION=1.15
+ARG ALPINE_VERSION=3.13
+ARG GO_VERSION=1.16
 
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS base
 # g++ is installed for the -race detector in go test
 RUN apk --update add git g++
-ARG GOLANGCI_LINT_VERSION=v1.34.1
+ARG GOLANGCI_LINT_VERSION=v1.37.1
 RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | \
   sh -s -- -b /usr/local/bin ${GOLANGCI_LINT_VERSION}
 ENV CGO_ENABLED=0
