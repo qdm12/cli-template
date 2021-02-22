@@ -4,16 +4,12 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"net/http"
 	"os"
 	"os/signal"
-	"path/filepath"
 	"syscall"
 	"time"
 
 	"github.com/qdm12/REPONAME/internal/models"
-	"github.com/qdm12/REPONAME/internal/params"
-	"github.com/qdm12/REPONAME/internal/setup"
 )
 
 //nolint:gochecknoglobals
@@ -77,13 +73,14 @@ func _main(ctx context.Context, args []string, buildInfo models.BuildInfo) error
 		buildInfo.Version, buildInfo.Commit, buildInfo.BuildDate)
 
 	flagSet := flag.NewFlagSet(args[0], flag.ExitOnError)
-	repoPath := flagSet.String("path", ".", "path")
+	pathPtr := flagSet.String("path", ".", "path")
 	if err := flagSet.Parse(args[1:]); err != nil {
 		return err
 	}
+	path := *pathPtr
 
 	fmt.Print("📁 Creating directory...")
-	err = os.MkdirAll(path, 0700)
+	err := os.MkdirAll(path, 0700)
 	if err != nil {
 		fmt.Println("❌")
 		return err
