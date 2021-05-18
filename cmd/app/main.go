@@ -20,8 +20,9 @@ var (
 )
 
 func main() {
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
+	ctx, stop := signal.NotifyContext(context.Background(),
+		syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
+
 	buildInfo := models.BuildInfo{
 		Version:   version,
 		Commit:    commit,
@@ -33,26 +34,18 @@ func main() {
 		errorCh <- _main(ctx, os.Args, buildInfo)
 	}()
 
-	signalsCh := make(chan os.Signal, 1)
-	signal.Notify(signalsCh,
-		syscall.SIGINT,
-		syscall.SIGTERM,
-		os.Interrupt,
-	)
-
 	select {
 	case err := <-errorCh:
 		close(errorCh)
-		if err == nil { // expected exit such as healthcheck
+		if err == nil { // expected exit
 			os.Exit(0)
 		}
 		fmt.Println("Fatal error:", err)
 		os.Exit(1)
-	case signal := <-signalsCh:
-		fmt.Println("\nShutting down: signal", signal)
+	case <-ctx.Done():
+		stop()
+		fmt.Println("\nShutting down: OS signal received")
 	}
-
-	cancel()
 
 	const shutdownGracePeriod = time.Second
 	timer := time.NewTimer(shutdownGracePeriod)
