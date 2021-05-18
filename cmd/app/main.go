@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 	"os/signal"
 	"syscall"
@@ -31,7 +32,7 @@ func main() {
 
 	errorCh := make(chan error)
 	go func() {
-		errorCh <- _main(ctx, os.Args, buildInfo)
+		errorCh <- _main(ctx, buildInfo, os.Args, os.Stdout, os.Stdin)
 	}()
 
 	select {
@@ -61,9 +62,11 @@ func main() {
 	os.Exit(1)
 }
 
-func _main(ctx context.Context, args []string, buildInfo models.BuildInfo) error {
-	fmt.Printf("🤖 Version %s (commit %s built on %s)\n",
+func _main(ctx context.Context, buildInfo models.BuildInfo,
+	args []string, stdout io.Writer, stdin io.Reader) error {
+	versionMessage := fmt.Sprintf("🤖 Version %s (commit %s built on %s)",
 		buildInfo.Version, buildInfo.Commit, buildInfo.BuildDate)
+	fmt.Fprint(stdout, versionMessage)
 
 	flagSet := flag.NewFlagSet(args[0], flag.ExitOnError)
 	pathPtr := flagSet.String("path", ".", "path")
@@ -72,13 +75,13 @@ func _main(ctx context.Context, args []string, buildInfo models.BuildInfo) error
 	}
 	path := *pathPtr
 
-	fmt.Print("📁 Creating directory...")
+	fmt.Fprint(stdout, "📁 Creating directory...")
 	err := os.MkdirAll(path, 0700)
 	if err != nil {
-		fmt.Println("❌")
+		fmt.Fprint(stdout, "❌")
 		return err
 	}
-	fmt.Println("✔️")
+	fmt.Fprint(stdout, "✔️")
 
 	return nil
 }
