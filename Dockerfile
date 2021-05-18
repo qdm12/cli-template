@@ -2,12 +2,8 @@ ARG ALPINE_VERSION=3.13
 ARG GO_VERSION=1.16
 
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS base
-# g++ is installed for the -race detector in go test
-RUN apk --update add git g++
-ARG GOLANGCI_LINT_VERSION=v1.37.1
-RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | \
-  sh -s -- -b /usr/local/bin ${GOLANGCI_LINT_VERSION}
 ENV CGO_ENABLED=0
+RUN apk --update add git
 WORKDIR /tmp/gobuild
 # Copy repository code and install Go dependencies
 COPY go.mod go.sum ./
@@ -15,7 +11,15 @@ RUN go mod download
 COPY cmd/ ./cmd/
 COPY internal/ ./internal/
 
+FROM --platform=$BUILDPLATFORM base AS test
+ENV CGO_ENABLED=1
+# g++ is installed for the -race detector in go test
+RUN apk --update add g++
+
 FROM --platform=$BUILDPLATFORM base AS lint
+ARG GOLANGCI_LINT_VERSION=v1.40.1
+RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | \
+  sh -s -- -b /usr/local/bin ${GOLANGCI_LINT_VERSION}
 COPY .golangci.yml ./
 RUN golangci-lint run --timeout=10m
 
@@ -35,12 +39,12 @@ ARG VERSION=unknown
 ARG BUILD_DATE="an unknown date"
 ARG COMMIT=unknown
 RUN GOARCH="$(xcputranslate -targetplatform ${TARGETPLATFORM} -field arch)" \
-    GOARM="$(xcputranslate -targetplatform ${TARGETPLATFORM} -field arm)" \
-    go build -trimpath -ldflags="-s -w \
-    -X 'main.version=$VERSION' \
-    -X 'main.buildDate=$BUILD_DATE' \
-    -X 'main.commit=$COMMIT' \
-    " -o entrypoint cmd/app/main.go
+  GOARM="$(xcputranslate -targetplatform ${TARGETPLATFORM} -field arm)" \
+  go build -trimpath -ldflags="-s -w \
+  -X 'main.version=$VERSION' \
+  -X 'main.buildDate=$BUILD_DATE' \
+  -X 'main.commit=$COMMIT' \
+  " -o entrypoint cmd/app/main.go
 
 FROM alpine:${ALPINE_VERSION} AS alpine
 RUN apk add ca-certificates
