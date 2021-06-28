@@ -1,10 +1,14 @@
 ARG ALPINE_VERSION=3.13
 ARG GO_VERSION=1.16
+ARG XCPUTRANSLATE_VERSION=v0.6.0
+
+FROM --platform=${BUILDPLATFORM} qmcgaw/xcputranslate:${XCPUTRANSLATE_VERSION} AS xcputranslate
 
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS base
 ENV CGO_ENABLED=0
 RUN apk --update add git
 WORKDIR /tmp/gobuild
+COPY --from=xcputranslate /xcputranslate /usr/local/bin/xcputranslate
 # Copy repository code and install Go dependencies
 COPY go.mod go.sum ./
 RUN go mod download
@@ -33,7 +37,6 @@ RUN git init && \
   git diff --exit-code -- go.mod
 
 FROM --platform=$BUILDPLATFORM base AS build
-COPY --from=qmcgaw/xcputranslate:v0.6.0 /xcputranslate /usr/local/bin/xcputranslate
 ARG TARGETPLATFORM
 ARG VERSION=unknown
 ARG BUILD_DATE="an unknown date"
