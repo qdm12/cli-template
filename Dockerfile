@@ -8,7 +8,7 @@ FROM --platform=${BUILDPLATFORM} qmcgaw/binpot:golangci-lint-${GOLANGCI_LINT_VER
 
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS base
 ENV CGO_ENABLED=0
-RUN apk --update add git
+RUN apk --update add git g++
 WORKDIR /tmp/gobuild
 COPY --from=xcputranslate /xcputranslate /usr/local/bin/xcputranslate
 COPY --from=golangci-lint /bin /go/bin/golangci-lint
@@ -20,8 +20,6 @@ COPY internal/ ./internal/
 
 FROM --platform=$BUILDPLATFORM base AS test
 ENV CGO_ENABLED=1
-# g++ is installed for the -race detector in go test
-RUN apk --update add g++
 
 FROM --platform=$BUILDPLATFORM base AS lint
 COPY .golangci.yml ./
