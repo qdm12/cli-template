@@ -33,13 +33,13 @@ RUN git init && \
   git diff --exit-code -- go.mod
 
 FROM --platform=$BUILDPLATFORM base AS build
-COPY --from=qmcgaw/xcputranslate:v0.4.0 /xcputranslate /usr/local/bin/xcputranslate
+COPY --from=qmcgaw/xcputranslate:v0.6.0 /xcputranslate /usr/local/bin/xcputranslate
 ARG TARGETPLATFORM
 ARG VERSION=unknown
 ARG BUILD_DATE="an unknown date"
 ARG COMMIT=unknown
-RUN GOARCH="$(xcputranslate -targetplatform ${TARGETPLATFORM} -field arch)" \
-  GOARM="$(xcputranslate -targetplatform ${TARGETPLATFORM} -field arm)" \
+RUN GOARCH="$(xcputranslate translate -targetplatform ${TARGETPLATFORM} -field arch)" \
+  GOARM="$(xcputranslate translate -targetplatform ${TARGETPLATFORM} -field arm)" \
   go build -trimpath -ldflags="-s -w \
   -X 'main.version=$VERSION' \
   -X 'main.buildDate=$BUILD_DATE' \
