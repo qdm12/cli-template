@@ -1,14 +1,17 @@
 ARG ALPINE_VERSION=3.13
 ARG GO_VERSION=1.16
 ARG XCPUTRANSLATE_VERSION=v0.6.0
+ARG GOLANGCI_LINT_VERSION=v1.41.1
 
 FROM --platform=${BUILDPLATFORM} qmcgaw/xcputranslate:${XCPUTRANSLATE_VERSION} AS xcputranslate
+FROM --platform=${BUILDPLATFORM} qmcgaw/binpot:golangci-lint-${GOLANGCI_LINT_VERSION} AS golangci-lint
 
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS base
 ENV CGO_ENABLED=0
 RUN apk --update add git
 WORKDIR /tmp/gobuild
 COPY --from=xcputranslate /xcputranslate /usr/local/bin/xcputranslate
+COPY --from=golangci-lint /bin /go/bin/golangci-lint
 # Copy repository code and install Go dependencies
 COPY go.mod go.sum ./
 RUN go mod download
@@ -21,9 +24,6 @@ ENV CGO_ENABLED=1
 RUN apk --update add g++
 
 FROM --platform=$BUILDPLATFORM base AS lint
-ARG GOLANGCI_LINT_VERSION=v1.41.1
-RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | \
-  sh -s -- -b /usr/local/bin ${GOLANGCI_LINT_VERSION}
 COPY .golangci.yml ./
 RUN golangci-lint run --timeout=10m
 
