@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/fs"
 	"os"
 	"os/signal"
 	"syscall"
@@ -62,8 +63,8 @@ func main() {
 	os.Exit(1)
 }
 
-func _main(ctx context.Context, buildInfo models.BuildInfo,
-	args []string, stdout io.Writer, stdin io.Reader) error {
+func _main(_ context.Context, buildInfo models.BuildInfo,
+	args []string, stdout io.Writer, _ io.Reader) error {
 	versionMessage := fmt.Sprintf("🤖 Version %s (commit %s built on %s)",
 		buildInfo.Version, buildInfo.Commit, buildInfo.BuildDate)
 	fmt.Fprint(stdout, versionMessage)
@@ -76,7 +77,8 @@ func _main(ctx context.Context, buildInfo models.BuildInfo,
 	path := *pathPtr
 
 	fmt.Fprint(stdout, "📁 Creating directory...")
-	err := os.MkdirAll(path, 0700)
+	const dirPerms fs.FileMode = 0700
+	err := os.MkdirAll(path, dirPerms)
 	if err != nil {
 		fmt.Fprint(stdout, "❌")
 		return err
