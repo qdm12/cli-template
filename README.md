@@ -1,6 +1,6 @@
 # cli-template
 
-*SHORT_DESCRIPTION*
+SHORT_DESCRIPTION
 
 [![Build status](https://github.com/qdm12/cli-template/actions/workflows/ci.yml/badge.svg)](https://github.com/qdm12/cli-template/actions/workflows/ci.yml)
 
