@@ -6,7 +6,7 @@ ARG GOLANGCI_LINT_VERSION=v1.41.1
 FROM --platform=${BUILDPLATFORM} qmcgaw/xcputranslate:${XCPUTRANSLATE_VERSION} AS xcputranslate
 FROM --platform=${BUILDPLATFORM} qmcgaw/binpot:golangci-lint-${GOLANGCI_LINT_VERSION} AS golangci-lint
 
-FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS base
+FROM --platform=${BUILDPLATFORM} golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS base
 ENV CGO_ENABLED=0
 RUN apk --update add git g++
 WORKDIR /tmp/gobuild
@@ -18,14 +18,14 @@ RUN go mod download
 COPY cmd/ ./cmd/
 COPY internal/ ./internal/
 
-FROM --platform=$BUILDPLATFORM base AS test
+FROM --platform=${BUILDPLATFORM} base AS test
 ENV CGO_ENABLED=1
 
-FROM --platform=$BUILDPLATFORM base AS lint
+FROM --platform=${BUILDPLATFORM} base AS lint
 COPY .golangci.yml ./
 RUN golangci-lint run --timeout=10m
 
-FROM --platform=$BUILDPLATFORM base AS tidy
+FROM --platform=${BUILDPLATFORM} base AS tidy
 RUN git init && \
   git config user.email ci@localhost && \
   git config user.name ci && \
@@ -34,7 +34,7 @@ RUN git init && \
   go mod tidy && \
   git diff --exit-code -- go.mod
 
-FROM --platform=$BUILDPLATFORM base AS build
+FROM --platform=${BUILDPLATFORM} base AS build
 ARG TARGETPLATFORM
 ARG VERSION=unknown
 ARG BUILD_DATE="an unknown date"
