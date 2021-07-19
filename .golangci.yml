@@ -34,6 +34,8 @@ linters:
     - importas
     - ineffassign
     - lll
+    - makezero
+    - maligned
     - misspell
     - nakedret
     - nestif
