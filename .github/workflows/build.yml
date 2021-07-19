@@ -103,11 +103,6 @@ jobs:
           tags: qmcgaw/reponame:${{ steps.vars.outputs.version }}
           push: true
 
-      - if: github.event.ref == 'refs/heads/main'
-        name: Microbadger hook
-        run: curl -X POST https://hooks.microbadger.com/images/qmcgaw/reponame/TODO
-        continue-on-error: true
-
       - if: github.event_name == 'release'
         uses: actions/setup-go@v2
         with:

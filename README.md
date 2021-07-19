@@ -104,5 +104,4 @@ Install Go, then either
 
 [![dockeri.co](https://dockeri.co/image/qmcgaw/REPONAME)](https://hub.docker.com/r/qmcgaw/REPONAME)
 
-![Docker Layers for latest](https://img.shields.io/microbadger/layers/qmcgaw/REPONAME/latest?label=Docker%20image%20layers)
 ![Go version](https://img.shields.io/github/go-mod/go-version/qdm12/REPONAME)
