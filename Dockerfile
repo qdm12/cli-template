@@ -59,12 +59,12 @@ LABEL \
   org.opencontainers.image.created=$CREATED \
   org.opencontainers.image.version=$VERSION \
   org.opencontainers.image.revision=$COMMIT \
-  org.opencontainers.image.url="https://github.com/qdm12/REPONAME" \
-  org.opencontainers.image.documentation="https://github.com/qdm12/REPONAME" \
-  org.opencontainers.image.source="https://github.com/qdm12/REPONAME" \
-  org.opencontainers.image.title="REPONAME" \
+  org.opencontainers.image.url="https://github.com/qdm12/cli-template" \
+  org.opencontainers.image.documentation="https://github.com/qdm12/cli-template" \
+  org.opencontainers.image.source="https://github.com/qdm12/cli-template" \
+  org.opencontainers.image.title="cli-template" \
   org.opencontainers.image.description=""
 COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-ENTRYPOINT ["/REPONAME"]
+ENTRYPOINT ["/cli-template"]
 USER 1000
-COPY --from=build --chown=1000 /tmp/gobuild/entrypoint /REPONAME
+COPY --from=build --chown=1000 /tmp/gobuild/entrypoint /cli-template

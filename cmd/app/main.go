@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/qdm12/REPONAME/internal/models"
+	"github.com/qdm12/cli-template/internal/models"
 )
 
 //nolint:gochecknoglobals

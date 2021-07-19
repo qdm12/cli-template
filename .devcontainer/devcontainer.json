@@ -1,5 +1,5 @@
 {
-    "name": "REPONAME-dev",
+    "name": "cli-template-dev",
     "dockerComposeFile": [
         "docker-compose.yml"
     ],
