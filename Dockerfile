@@ -37,13 +37,13 @@ RUN git init && \
 FROM --platform=${BUILDPLATFORM} base AS build
 ARG TARGETPLATFORM
 ARG VERSION=unknown
-ARG BUILD_DATE="an unknown date"
+ARG CREATED="an unknown date"
 ARG COMMIT=unknown
 RUN GOARCH="$(xcputranslate translate -targetplatform ${TARGETPLATFORM} -field arch)" \
   GOARM="$(xcputranslate translate -targetplatform ${TARGETPLATFORM} -field arm)" \
   go build -trimpath -ldflags="-s -w \
   -X 'main.version=$VERSION' \
-  -X 'main.buildDate=$BUILD_DATE' \
+  -X 'main.buildDate=$CREATED' \
   -X 'main.commit=$COMMIT' \
   " -o entrypoint cmd/app/main.go
 
@@ -52,11 +52,11 @@ RUN apk add ca-certificates
 
 FROM scratch
 ARG VERSION=unknown
-ARG BUILD_DATE="an unknown date"
+ARG CREATED="an unknown date"
 ARG COMMIT=unknown
 LABEL \
   org.opencontainers.image.authors="quentin.mcgaw@gmail.com" \
-  org.opencontainers.image.created=$BUILD_DATE \
+  org.opencontainers.image.created=$CREATED \
   org.opencontainers.image.version=$VERSION \
   org.opencontainers.image.revision=$COMMIT \
   org.opencontainers.image.url="https://github.com/qdm12/REPONAME" \
