@@ -23,7 +23,14 @@
         "vscode-icons-team.vscode-icons", // Better file extension icons
         "github.vscode-pull-request-github", // Github interaction
         "redhat.vscode-yaml", // Kubernetes, Drone syntax highlighting
+        "bajdzis.vscode-database", // Supports connections to mysql or postgres, over SSL, socked
         "IBM.output-colorizer", // Colorize your output/test logs
+        // "mohsen1.prettify-json", // Prettify JSON data
+        // "zxh404.vscode-proto3", // Supports Proto syntax
+        // "jrebocho.vscode-random", // Generates random values
+        // "alefragnani.Bookmarks", // Manage bookmarks
+        // "quicktype.quicktype", // Paste JSON as code
+        // "spikespaz.vscode-smoothtype", // smooth cursor animation
     ],
     "settings": {
         "files.eol": "\n",
@@ -65,7 +72,9 @@
         "gopls.env": {
             "GOFLAGS": "-tags="
         },
-        "go.testEnvVars": {},
+        "go.testEnvVars": {
+            "": "",
+        },
         "go.testFlags": [
             "-v",
             "-race"
@@ -73,5 +82,6 @@
         "go.testTimeout": "10s",
         "go.coverOnSingleTest": true,
         "go.coverOnSingleTestFile": true,
+        "go.coverOnTestPackage": true
     }
 }
