@@ -63,6 +63,7 @@ func main() {
 	os.Exit(1)
 }
 
+//nolint:wrapcheck
 func _main(_ context.Context, buildInfo models.BuildInfo,
 	args []string, stdout io.Writer, _ io.Reader) error {
 	versionMessage := fmt.Sprintf("🤖 Version %s (commit %s built on %s)",
