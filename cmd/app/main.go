@@ -46,7 +46,6 @@ func main() {
 		os.Exit(1)
 	case <-ctx.Done():
 		stop()
-		fmt.Println("\nShutting down: OS signal received")
 	}
 
 	const shutdownGracePeriod = time.Second
@@ -68,7 +67,7 @@ func _main(_ context.Context, buildInfo models.BuildInfo,
 	args []string, stdout io.Writer, _ io.Reader) error {
 	versionMessage := fmt.Sprintf("🤖 Version %s (commit %s built on %s)",
 		buildInfo.Version, buildInfo.Commit, buildInfo.BuildDate)
-	fmt.Fprint(stdout, versionMessage)
+	fmt.Fprintln(stdout, versionMessage)
 
 	flagSet := flag.NewFlagSet(args[0], flag.ExitOnError)
 	pathPtr := flagSet.String("path", ".", "path")
@@ -81,10 +80,10 @@ func _main(_ context.Context, buildInfo models.BuildInfo,
 	const dirPerms fs.FileMode = 0700
 	err := os.MkdirAll(path, dirPerms)
 	if err != nil {
-		fmt.Fprint(stdout, "❌")
+		fmt.Fprintln(stdout, " ❌")
 		return err
 	}
-	fmt.Fprint(stdout, "✔️")
+	fmt.Fprintln(stdout, " ✔️")
 
 	return nil
 }
