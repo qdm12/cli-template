@@ -1,4 +1,4 @@
-ARG ALPINE_VERSION=3.14
+ARG ALPINE_VERSION=3.16
 ARG GO_VERSION=1.17
 ARG XCPUTRANSLATE_VERSION=v0.6.0
 ARG GOLANGCI_LINT_VERSION=v1.42.1
@@ -66,7 +66,6 @@ LABEL \
   org.opencontainers.image.source="https://github.com/qdm12/cli-template" \
   org.opencontainers.image.title="cli-template" \
   org.opencontainers.image.description=""
-COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 ENTRYPOINT ["/cli-template"]
 USER 1000
 COPY --from=build --chown=1000 /tmp/gobuild/entrypoint /cli-template
