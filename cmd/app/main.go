@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"io"
 	"io/fs"
@@ -11,6 +10,9 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/qdm12/cli-template/internal/config/source/env"
+	"github.com/qdm12/cli-template/internal/config/source/flags"
+	"github.com/qdm12/cli-template/internal/config/source/mux"
 	"github.com/qdm12/cli-template/internal/models"
 )
 
@@ -62,23 +64,31 @@ func main() {
 	os.Exit(1)
 }
 
-//nolint:wrapcheck
 func _main(_ context.Context, buildInfo models.BuildInfo,
 	args []string, stdout io.Writer, _ io.Reader) error {
 	versionMessage := fmt.Sprintf("🤖 Version %s (commit %s built on %s)",
 		buildInfo.Version, buildInfo.Commit, buildInfo.BuildDate)
 	fmt.Fprintln(stdout, versionMessage)
 
-	flagSet := flag.NewFlagSet(args[0], flag.ExitOnError)
-	pathPtr := flagSet.String("path", ".", "path")
-	if err := flagSet.Parse(args[1:]); err != nil {
-		return err
+	flags := flags.New(args)
+	env := env.New()
+	mux := mux.New(flags, env)
+
+	settings, err := mux.Read()
+	if err != nil {
+		return fmt.Errorf("reading settings: %w", err)
 	}
-	path := *pathPtr
+	settings.SetDefaults()
+	err = settings.Validate()
+	if err != nil {
+		return fmt.Errorf("validating settings: %w", err)
+	}
+
+	fmt.Fprintln(stdout, settings)
 
 	fmt.Fprint(stdout, "📁 Creating directory...")
 	const dirPerms fs.FileMode = 0700
-	err := os.MkdirAll(path, dirPerms)
+	err = os.MkdirAll(settings.Path, dirPerms)
 	if err != nil {
 		fmt.Fprintln(stdout, " ❌")
 		return err

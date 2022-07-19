@@ -1,0 +1,5 @@
+github.com/qdm12/gosettings v0.1.0 h1:YBeIZrpOwLmsnybDm3asCHzUllioDWHIVnQnsnQOvLs=
+github.com/qdm12/gosettings v0.1.0/go.mod h1:5bUpX8IX45j+H9ehMqMnXP+7DMAplVbg0ANDzIFxyh0=
+github.com/qdm12/gotree v0.2.0 h1:+58ltxkNLUyHtATFereAcOjBVfY6ETqRex8XK90Fb/c=
+github.com/qdm12/gotree v0.2.0/go.mod h1:1SdFaqKZuI46U1apbXIf25pDMNnrPuYLEqMF/qL4lY4=
+github.com/qdm12/govalid v0.1.0/go.mod h1:CyS/OEQdOvunBgrtIsW93fjd4jBkwZPBjGSpxq3NwA4=
