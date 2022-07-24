@@ -72,6 +72,13 @@ jobs:
       - uses: github/codeql-action/analyze@v2
 
   publish:
+    if: |
+      github.repository == 'qdm12/cli-template' &&
+      (
+        github.event_name == 'push' ||
+        github.event_name == 'release' ||
+        (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]')
+      )
     needs: [verify, codeql]
     permissions:
       actions: read
