@@ -18,9 +18,9 @@ import (
 
 //nolint:gochecknoglobals
 var (
-	version   = "unknown"
-	commit    = "unknown"
-	buildDate = "an unknown date"
+	version = "unknown"
+	commit  = "unknown"
+	date    = "an unknown date"
 )
 
 func main() {
@@ -28,9 +28,9 @@ func main() {
 		syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
 
 	buildInfo := models.BuildInfo{
-		Version:   version,
-		Commit:    commit,
-		BuildDate: buildDate,
+		Version: version,
+		Commit:  commit,
+		Date:    date,
 	}
 
 	errorCh := make(chan error)
@@ -67,7 +67,7 @@ func main() {
 func _main(_ context.Context, buildInfo models.BuildInfo,
 	args []string, stdout io.Writer, _ io.Reader) error {
 	versionMessage := fmt.Sprintf("🤖 Version %s (commit %s built on %s)",
-		buildInfo.Version, buildInfo.Commit, buildInfo.BuildDate)
+		buildInfo.Version, buildInfo.Commit, buildInfo.Date)
 	fmt.Fprintln(stdout, versionMessage)
 
 	flags := flags.New(args)
