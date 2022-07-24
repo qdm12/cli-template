@@ -20,7 +20,11 @@ COPY cmd/ ./cmd/
 COPY internal/ ./internal/
 
 FROM --platform=${BUILDPLATFORM} base AS test
+# Note on the go race detector:
+# - we set CGO_ENABLED=1 to have it enabled
+# - we installed g++ to support the race detector
 ENV CGO_ENABLED=1
+ENTRYPOINT go test -race -coverpkg=./... -coverprofile=coverage.txt -covermode=atomic ./...
 
 FROM --platform=${BUILDPLATFORM} base AS lint
 COPY .golangci.yml ./
