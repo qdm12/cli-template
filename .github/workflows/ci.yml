@@ -1,6 +1,9 @@
 name: CI
 
 on:
+  release:
+    types:
+      - published
   push:
     paths:
       - .github/workflows/ci.yml
