@@ -25,7 +25,7 @@ SHORT_DESCRIPTION
 ![GitHub repo size](https://img.shields.io/github/repo-size/qdm12/cli-template)
 ![Go version](https://img.shields.io/github/go-mod/go-version/qdm12/cli-template)
 
-[![MIT](https://img.shields.io/github/license/qdm12/cli-template)](https://github.com/qdm12/cli-template/master/LICENSE)
+[![MIT](https://img.shields.io/github/license/qdm12/cli-template)](https://github.com/qdm12/cli-template/main/LICENSE)
 ![Visitors count](https://visitor-badge.laobi.icu/badge?page_id=cli-template.readme)
 
 ## Quick links
