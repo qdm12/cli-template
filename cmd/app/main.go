@@ -65,7 +65,8 @@ func main() {
 }
 
 func _main(_ context.Context, buildInfo models.BuildInfo,
-	args []string, stdout io.Writer, _ io.Reader) error {
+	args []string, stdout io.Writer, _ io.Reader,
+) error {
 	versionMessage := fmt.Sprintf("🤖 Version %s (commit %s built on %s)",
 		buildInfo.Version, buildInfo.Commit, buildInfo.Date)
 	fmt.Fprintln(stdout, versionMessage)
@@ -87,7 +88,7 @@ func _main(_ context.Context, buildInfo models.BuildInfo,
 	fmt.Fprintln(stdout, settings)
 
 	fmt.Fprint(stdout, "📁 Creating directory...")
-	const dirPerms fs.FileMode = 0700
+	const dirPerms fs.FileMode = 0o700
 	err = os.MkdirAll(settings.Path, dirPerms)
 	if err != nil {
 		fmt.Fprintln(stdout, " ❌")
