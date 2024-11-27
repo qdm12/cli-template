@@ -1,6 +1,6 @@
 module github.com/qdm12/cli-template
 
-go 1.17
+go 1.23
 
 require (
 	github.com/qdm12/gosettings v0.1.0
