@@ -2,7 +2,7 @@ before:
   hooks:
     - go mod download
 builds:
-  - main: ./cmd/app/main.go
+  - main: ./cmd/cli-template/main.go
     flags:
       - -trimpath
     ldflags:

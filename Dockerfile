@@ -41,7 +41,7 @@ RUN GOARCH="$(xcputranslate translate -targetplatform ${TARGETPLATFORM} -field a
   -X 'main.version=$VERSION' \
   -X 'main.buildDate=$CREATED' \
   -X 'main.commit=$COMMIT' \
-  " -o entrypoint cmd/app/main.go
+  " -o entrypoint cmd/cli-template/main.go
 
 FROM --platform=${BUILDPLATFORM} base AS mocks
 RUN git init && \
