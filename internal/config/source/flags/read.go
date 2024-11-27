@@ -26,11 +26,11 @@ func (source *Source) Read() (settings settings.Settings, err error) {
 	return settings, nil
 }
 
-type rawStrings struct {
-}
+type rawStrings struct{}
 
 func configureFlagSet(flagSetName string) (flagSet *flag.FlagSet,
-	flagSettings settings.Settings, rawStrings rawStrings) {
+	flagSettings settings.Settings, rawStrings rawStrings, //nolint:unparam
+) {
 	flagSet = flag.NewFlagSet(flagSetName, flag.ExitOnError)
 
 	// set pointers to non-nil values and
@@ -44,12 +44,13 @@ func configureFlagSet(flagSetName string) (flagSet *flag.FlagSet,
 	return flagSet, flagSettings, rawStrings
 }
 
-func postProcessRawStrings(rawStrings rawStrings, settings *settings.Settings) (err error) {
+func postProcessRawStrings(rawStrings rawStrings, settings *settings.Settings) (err error) { //nolint:revive
 	return nil
 }
 
 func visitFlag(flagName string, destination *settings.Settings,
-	source settings.Settings) {
+	source settings.Settings,
+) {
 	switch flagName { //nolint:gocritic
 	case "path":
 		destination.Path = source.Path

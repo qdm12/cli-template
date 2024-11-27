@@ -7,7 +7,7 @@ issues:
     - path: _test\.go
       linters:
         - dupl
-        - goerr113
+        - err113
         - containedctx
 
 linters:
@@ -17,17 +17,17 @@ linters:
     - bidichk
     - bodyclose
     - containedctx
+    - copyloopvar
     - cyclop
     - decorder
     - dogsled
     - dupl
     - durationcheck
+    - err113
     - errchkjson
     - errname
     - errorlint
-    - execinquery
     - exhaustive
-    - exportloopref
     - forcetypeassert
     - gci
     - gochecknoglobals
@@ -37,28 +37,25 @@ linters:
     - gocritic
     - gocyclo
     - godot
-    - goerr113
     - goheader
     - goimports
-    - gomnd
     - gomoddirectives
     - goprintffuncname
     - gosec
     - grouper
-    - ifshort
     - importas
     - ireturn
     - lll
     - maintidx
     - makezero
     - misspell
+    - mnd
     - nakedret
     - nestif
     - nilerr
     - nilnil
     - noctx
     - nolintlint
-    - nosnakecase
     - nosprintfhostport
     - prealloc
     - predeclared
@@ -73,8 +70,3 @@ linters:
     - unparam
     - wastedassign
     - whitespace
-
-run:
-  skip-dirs:
-    - .devcontainer
-    - .github
