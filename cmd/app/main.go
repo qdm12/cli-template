@@ -10,10 +10,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/qdm12/cli-template/internal/config/source/env"
-	"github.com/qdm12/cli-template/internal/config/source/flags"
-	"github.com/qdm12/cli-template/internal/config/source/mux"
+	"github.com/qdm12/cli-template/internal/config"
 	"github.com/qdm12/cli-template/internal/models"
+	"github.com/qdm12/gosettings/reader"
 )
 
 //nolint:gochecknoglobals
@@ -35,7 +34,7 @@ func main() {
 
 	errorCh := make(chan error)
 	go func() {
-		errorCh <- _main(ctx, buildInfo, os.Args, os.Stdout, os.Stdin)
+		errorCh <- _main(ctx, buildInfo, os.Stdout, os.Stdin)
 	}()
 
 	select {
@@ -65,17 +64,15 @@ func main() {
 }
 
 func _main(_ context.Context, buildInfo models.BuildInfo,
-	args []string, stdout io.Writer, _ io.Reader,
-) error {
+	stdout io.Writer, _ io.Reader,
+) (err error) {
 	versionMessage := fmt.Sprintf("🤖 Version %s (commit %s built on %s)",
 		buildInfo.Version, buildInfo.Commit, buildInfo.Date)
 	fmt.Fprintln(stdout, versionMessage)
 
-	flags := flags.New(args)
-	env := env.New()
-	mux := mux.New(flags, env)
-
-	settings, err := mux.Read()
+	reader := reader.New(reader.Settings{})
+	var settings config.Settings
+	err = settings.Read(reader)
 	if err != nil {
 		return fmt.Errorf("reading settings: %w", err)
 	}

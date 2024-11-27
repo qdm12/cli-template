@@ -56,13 +56,13 @@ ARCH=amd64
 wget -O cli-template "https://github.com/qdm12/cli-template/releases/download/$VERSION/cli-template_$VERSION_linux_$ARCH"
 chmod 500 cli-template
 
-./cli-template -help
+./cli-template
 ```
 
 ### Docker
 
 ```sh
-docker run -it --rm -v "/yourrepopath:/repository" qmcgaw/cli-template:v0.1.0 -help
+docker run -it --rm -v "/yourrepopath:/repository" qmcgaw/cli-template:v0.1.0
 ```
 
 ## Platforms supported

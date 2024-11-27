@@ -1,11 +1,11 @@
-package settings
+package config
 
 import (
 	"fmt"
 	"os"
 
-	"github.com/qdm12/gosettings/defaults"
-	"github.com/qdm12/gosettings/merge"
+	"github.com/qdm12/gosettings"
+	"github.com/qdm12/gosettings/reader"
 	"github.com/qdm12/gotree"
 )
 
@@ -13,22 +13,16 @@ type Settings struct {
 	Path string
 }
 
-// MergeWith sets only zero-ed fields in the receiving settings
-// with fields from the other settings given.
-func (s *Settings) MergeWith(other Settings) {
-	s.Path = merge.String(s.Path, other.Path)
-}
-
 // OverrideWith sets fields in the receiving settings
 // from non-zero fields from the other settings given.
 func (s *Settings) OverrideWith(other Settings) {
-	s.Path = merge.String(s.Path, other.Path)
+	s.Path = gosettings.OverrideWithComparable(s.Path, other.Path)
 }
 
 // SetDefaults sets the defaults to all the zero-ed fields
 // in the receiving settings.
 func (s *Settings) SetDefaults() {
-	s.Path = defaults.String(s.Path, "./path")
+	s.Path = gosettings.DefaultComparable(s.Path, "./path")
 }
 
 // Validate validates all the settings are correct.
@@ -40,6 +34,11 @@ func (s *Settings) Validate() (err error) {
 		return fmt.Errorf("path: %w", err)
 	}
 
+	return nil
+}
+
+func (s *Settings) Read(reader *reader.Reader) (err error) {
+	s.Path = reader.String("SOME_PATH")
 	return nil
 }
 
