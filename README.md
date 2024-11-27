@@ -30,7 +30,6 @@ SHORT_DESCRIPTION
 - Problem or suggestion?
   - [Start a discussion](https://github.com/qdm12/cli-template/discussions)
   - [Create an issue](https://github.com/qdm12/cli-template/issues)
-  - [Check the Wiki](https://github.com/qdm12/cli-template/wiki)
 - Happy?
   - Sponsor me on [github.com/sponsors/qdm12](https://github.com/sponsors/qdm12)
   - Donate to [paypal.me/qmcgaw](https://www.paypal.me/qmcgaw)
@@ -38,54 +37,30 @@ SHORT_DESCRIPTION
 
 ## Features
 
+- Pre-built standalone binary programs built for Linux, OSX and Windows
+- Docker images available on [Docker Hub](https://hub.docker.com/r/qmcgaw/cli-template) and [GitHub Container Registry](https://github.com/users/qmcgaw/packages/container/package/cli-template)
+- Docker images are multi-arch: `linux/amd64`, `linux/386`, `linux/arm64`, `linux/arm/v6`, `linux/arm/v7`.
+
 ## Usage
 
-```sh
+You can run the program either as a standalone binary or as a Docker container:
 
-```
-
-### Binary
-
-```sh
-VERSION=v0.1.0
-ARCH=amd64
-
-wget -O cli-template "https://github.com/qdm12/cli-template/releases/download/$VERSION/cli-template_$VERSION_linux_$ARCH"
-chmod 500 cli-template
-
-./cli-template
-```
-
-### Docker
-
-```sh
-docker run -it --rm -v "/yourrepopath:/repository" qmcgaw/cli-template:v0.1.0
-```
-
-## Platforms supported
-
-- `linux/amd64`
-- `linux/386`
-- `linux/arm64`
-- `linux/arm/v6`
-- `linux/arm/v7`
-- `linux/s390x`
-- `linux/ppc64le`
-- `linux/riscv64`
-- If you need one more, please [create an issue](https://github.com/qdm12/cli-template/issues/new)
-
-## Build it yourself
-
-Install Go, then either
-
-- Download it on your machine:
+- Standalone binary
+  1. Download the binary matching your platform from [the releases page](https://github.com/qdm12/cli-template/releases).
+  You can also install the binary from source using [Go](https://golang.org/dl/) with `go install github.com/qdm12/cli-template/cmd/cli-template`
+  2. On Linux and OSX, make the binary executable with `chmod +x cli-template`
+  3. Run the binary with `./cli-template`
+- Docker container
 
   ```sh
-  go get github.com/qdm12/cli-template/cmd/cli-template
+  docker run --rm qmcgaw/cli-template
   ```
 
-- Clone this repository and build it:
+  There also Docker tags matching each Github release, for example `:0.1.0` for release `v0.1.0`.
+  The latest image tag matches the tip of the main branch.
 
-  ```sh
-  GOARCH=amd64 go build cmd/cli-template/main.go
-  ```
+### Options
+
+| Flag | Environment variable | Default | Description |
+|---|---|---|---|
+| `--some-path` | `SOME_PATH` | `./path` | Path to some directory |
