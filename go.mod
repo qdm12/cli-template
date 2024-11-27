@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/qdm12/gosettings v0.4.4
-	github.com/qdm12/gotree v0.2.0
+	github.com/qdm12/gotree v0.3.0
 )
 
 require (
