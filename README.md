@@ -23,8 +23,6 @@ SHORT_DESCRIPTION
 ![Visitors count](https://visitor-badge.laobi.icu/badge?page_id=cli-template.readme)
 [![Build status](https://github.com/qdm12/cli-template/actions/workflows/ci.yml/badge.svg)](https://github.com/qdm12/cli-template/actions/workflows/ci.yml)
 
-[![dockeri.co](https://dockeri.co/image/qmcgaw/cli-template)](https://hub.docker.com/r/qmcgaw/cli-template)
-
 ## Quick links
 
 - Problem or suggestion?
