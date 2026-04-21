@@ -1,16 +1,40 @@
-linters-settings:
-  misspell:
-    locale: US
+version: "2"
 
-issues:
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - dupl
-        - err113
-        - containedctx
+formatters:
+  enable:
+    - gci
+    - gofumpt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
 
 linters:
+  settings:
+    misspell:
+      locale: US
+
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - containedctx
+          - dupl
+          - err113
+        path: _test\.go
+
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
   enable:
     - asasalint
     - asciicheck
@@ -33,7 +57,6 @@ linters:
     - exhaustive
     - fatcontext
     - forcetypeassert
-    - gci
     - gocheckcompilerdirectives
     - gochecknoglobals
     - gochecknoinits
@@ -42,9 +65,7 @@ linters:
     - gocritic
     - gocyclo
     - godot
-    - gofumpt
     - goheader
-    - goimports
     - gomoddirectives
     - goprintffuncname
     - gosec
@@ -76,8 +97,6 @@ linters:
     - revive
     - rowserrcheck
     - sqlclosecheck
-    - tagalign
-    - tenv
     - thelper
     - tparallel
     - unconvert
