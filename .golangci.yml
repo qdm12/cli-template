@@ -60,10 +60,12 @@ linters:
     - gocheckcompilerdirectives
     - gochecknoglobals
     - gochecknoinits
+    - gochecksumtype
     - gocognit
     - goconst
     - gocritic
     - gocyclo
+    - godoclint
     - godot
     - goheader
     - gomoddirectives
@@ -72,8 +74,10 @@ linters:
     - gosmopolitan
     - grouper
     - importas
+    - inamedparam
     - interfacebloat
     - intrange
+    - iotamixing
     - ireturn
     - lll
     - maintidx
@@ -81,6 +85,7 @@ linters:
     - mirror
     - misspell
     - mnd
+    - modernize
     - musttag
     - nakedret
     - nestif
@@ -90,13 +95,17 @@ linters:
     - nolintlint
     - nosprintfhostport
     - paralleltest
+    - perfsprint
     - prealloc
     - predeclared
     - promlinter
+    - protogetter
     - reassign
     - revive
     - rowserrcheck
+    - sloglint
     - sqlclosecheck
+    - tagalign
     - thelper
     - tparallel
     - unconvert
