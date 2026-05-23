@@ -35,7 +35,7 @@ jobs:
         with:
           use-quiet-mode: yes
 
-      - uses: peter-evans/dockerhub-description@v4
+      - uses: peter-evans/dockerhub-description@v5
         if: github.repository == 'qdm12/cli-template' && github.event_name == 'push'
         with:
           username: qmcgaw
